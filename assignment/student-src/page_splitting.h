@@ -18,7 +18,7 @@
 
 /* Get the virtual page number from a virtual address. */
 static inline vpn_t vaddr_vpn(vaddr_t addr) {
-    vpn_t v_page_num = addr >> OFFSET_LEN;
+    vpn_t v_page_num = addr / PAGE_SIZE;
     return v_page_num;                   
 }
 
