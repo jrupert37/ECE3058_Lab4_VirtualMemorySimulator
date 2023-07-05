@@ -18,7 +18,7 @@ typedef struct ptable_entry {
     uint8_t dirty;              /* 1 if the entry has been modified from its
                                    form on disk and must be written back when it
                                    is next evicted. */
-    pfn_t pfn;                 /* The physical frame number (PFN) this entry
+    pfn_t pfn;                  /* The physical frame number (PFN) this entry
                                    maps to. */
     swap_entry_t swap;          /* The swap entry mapped to this page. Use this
                                    to read to/write from the page to disk using

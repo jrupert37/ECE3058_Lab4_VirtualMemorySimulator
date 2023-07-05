@@ -37,6 +37,25 @@ pfn_t free_frame(void) {
      */
 
     /* If the victim is in use, we must evict it first */
+        
+    if (frame_table[victim_pfn].mapped == 1) { 
+        vpn_t vpn = frame_table[victim_pfn].vpn;
+        pfn_t ptbr = frame_table[victim_pfn].process->saved_ptbr;
+        pte_t* page_table = (pte_t*)((mem + (ptbr * PAGE_SIZE)));
+        pte_t* pte = &page_table[vpn];
+        uint8_t* entry = (uint8_t*)(mem + (pte->pfn * PAGE_SIZE));
+        if (pte->dirty == 1) {
+            stats.writebacks++;
+            swap_write(pte, entry);
+            pte->dirty = 0;
+        }
+        pte->valid = 0;
+    }
+    frame_table[victim_pfn].mapped = 0;
+    frame_table[victim_pfn].process = 0;
+    frame_table[victim_pfn].protected = 0;
+    frame_table[victim_pfn].referenced = 0;
+    frame_table[victim_pfn].vpn = 0;
 
 
     /* Return the pfn */

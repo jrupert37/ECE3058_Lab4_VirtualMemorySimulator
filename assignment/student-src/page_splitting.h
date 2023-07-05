@@ -13,17 +13,17 @@
     HINT: While these values will be powers of two, allowing you to use bit-wise
     arithmetic, consider using modulus division and integer division for
     an elegant solution.
-    -----------------------------------------------------------------------------------
+    ---------------------------------COMPLETE----------------------------------------
  */
 
 /* Get the virtual page number from a virtual address. */
 static inline vpn_t vaddr_vpn(vaddr_t addr) {
-    vpn_t v_page_num = addr / PAGE_SIZE;
+    vpn_t v_page_num = addr / PAGE_SIZE;                    // Dividing addr by the page size yeilds the virtual page num
     return v_page_num;                   
 }
 
 /* Get the offset into the page from a virtual address. */
-static inline uint16_t vaddr_offset(vaddr_t addr) {
+static inline uint16_t vaddr_offset(vaddr_t addr) {         // Moding addr by the page size yields a remainder that represents the virtual page offset
     uint16_t offset = addr % PAGE_SIZE;
     return offset;
 }
